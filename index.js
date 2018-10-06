@@ -1,10 +1,10 @@
 /**
- * Created by anshul on 18/7/17.
+ * Created by anshul wadhawan on 18/7/17.
  */
 var express=require('express');
 var app=express();
 var http=require('http');
-var server=http.createServer(app);
+var server=http.createServer(app);   //creating the server
 var socket=require('socket.io');
 app.use('/',express.static('subfiles'));
 var io=socket(server);
@@ -24,15 +24,12 @@ io.on('connection',function (socket) {
         activeusers[socket.id]=data;
         io.emit('activeusers',activeusers);
     })
-
     socket.on('disconnect', function(){
         delete activeusers[socket.id];
         console.log('user disconnected');
         io.emit('activeusers',activeusers);
     });
-
 })
-
 server.listen(PORT,function () {
-    console.log("Server is running on port "+PORT);
+    console.log("Server is running on port"+ PORT);
 })
